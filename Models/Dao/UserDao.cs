@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using PagedList;
 using System.Threading.Tasks;
 
 namespace Models.Dao
@@ -19,6 +20,10 @@ namespace Models.Dao
             db.Users.Add(entity);
             db.SaveChanges();
             return entity.ID;
+        }
+        public IEnumerable<User> ListAllPaging(int page,int pageSize)
+        {
+            return db.Users.OrderByDescending(x=>x.CreatedDate).ToPagedList(page,pageSize);
         }
         public bool Update(User entity)
         {
