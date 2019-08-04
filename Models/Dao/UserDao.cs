@@ -64,12 +64,27 @@ namespace Models.Dao
                 }
                 else
                 {
-                    if (result.Password == password)
+                    if (result.PasswordLevel2 == password)
                         return 1;
                     else
                         return -2;
                 }
             }
+        }
+        public bool Delete(int id)
+        {
+            try
+            {
+                var user = db.Users.Find(id);
+                db.Users.Remove(user);
+                db.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+
         }
     }
 }

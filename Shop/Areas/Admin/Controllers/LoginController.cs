@@ -37,12 +37,12 @@ namespace Shop.Areas.Admin.Controllers
                     ModelState.AddModelError("", "Tài khoản không tồn tại");
                 }
                 else
-                    if (result == 0)
+                    if (result == -1)
                 {
                     ModelState.AddModelError("", "Tài khoản đang bị khóa");
                 }
                 else
-                    if (result == 0)
+                    if (result == -2)
                 {
                     ModelState.AddModelError("", "Mật khẩu không đúng");
                 }

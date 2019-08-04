@@ -30,6 +30,7 @@ namespace Shop.Areas.Admin.Controllers
             var user = new UserDao().ViewDetail(id);
             return View(user);
         }
+        [HttpPost]
         public ActionResult Create(User user)
         {
             var dao = new UserDao();
@@ -53,6 +54,38 @@ namespace Shop.Areas.Admin.Controllers
 
             }
             return View("Index");
+        }
+        [HttpPost]
+        public ActionResult Edit(User user)
+        {
+            var dao = new UserDao();
+            var Pass = Encryptor.MD5Hash(user.Password);
+            // user.Password = Pass;
+            user.PasswordLevel2 = Pass;
+            bool result = dao.Update(user);
+            if (ModelState.IsValid)
+            {
+                if (result)
+                {
+                    return RedirectToAction("Index", "User");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Thêm User thành công");
+                }
+            }
+            else
+            {
+
+            }
+            return View("Index");
+         }
+        [HttpDelete]
+        public ActionResult Delete(int id)
+        {
+            new UserDao().Delete(id);
+
+            return RedirectToAction("Index");
         }
     }
 }
